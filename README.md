@@ -1,5 +1,13 @@
-# php-fpm-exporter for K8S environments
+# php-fpm-exporter for K8S environments (avoid sidecar containers)
 
+## Supported protocols
+- fastcgi
+- http (with Nginx)
+
+## Installing the Chart
+```$sh
+helm install --name php-fpm-exporter deploy/php-fpm-exporter
+```
 
 ### Prometheus job example
 
