@@ -29,7 +29,7 @@ func main() {
 		},
 	}
 
-	command.Flags().StringVar(&options.address, "address", ":8080", "The IP address and port for the exporter to serve on")
+	command.Flags().StringVar(&options.address, "address", ":9253", "The address to listen on for HTTP requests")
 
 	if err := command.Execute(); err != nil {
 		os.Exit(1)
@@ -39,6 +39,16 @@ func main() {
 func (o *options) Run() error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/metrics", metricsHandler)
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`
+			<html>
+    		<head><title>PHP-FPM Exporter</title></head>
+    		<body>
+    		<h1>PHP-FPM Exporter</h1>
+    		</body>
+    		</html>`,
+		))
+	})
 
 	server := http.Server{
 		Addr:    o.address,
