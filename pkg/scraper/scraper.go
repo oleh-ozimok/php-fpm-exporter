@@ -10,6 +10,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
+const namespace = "phpfpm"
+
 type Target interface {
 	Scrape() ([]byte, error)
 }
@@ -51,57 +53,68 @@ func (t *Timestamp) UnmarshalJSON(b []byte) error {
 func Scrape(target Target, registry *prometheus.Registry) error {
 	var (
 		startSinceGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "start_since",
-			Help: "The number of seconds since FPM has started.",
+			Namespace: namespace,
+			Name:      "start_since",
+			Help:      "The number of seconds since FPM has started.",
 		})
 
 		acceptedConnectionsGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "accepted_connections",
-			Help: "The number of requests accepted by the pool.",
+			Namespace: namespace,
+			Name:      "accepted_connections",
+			Help:      "The number of requests accepted by the pool.",
 		})
 
 		listenQueueGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "listen_queue",
-			Help: "The number of requests in the queue of pending connections.",
+			Namespace: namespace,
+			Name:      "listen_queue",
+			Help:      "The number of requests in the queue of pending connections.",
 		})
 
 		maxListenQueueGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "max_listen_queue",
-			Help: "The maximum number of requests in the queue of pending connections since FPM has started.",
+			Namespace: namespace,
+			Name:      "max_listen_queue",
+			Help:      "The maximum number of requests in the queue of pending connections since FPM has started.",
 		})
 
 		listenQueueLengthGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "listen_queue_length",
-			Help: "The size of the socket queue of pending connections.",
+			Namespace: namespace,
+			Name:      "listen_queue_length",
+			Help:      "The size of the socket queue of pending connections.",
 		})
 
 		idleProcessesGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "idle_processes",
-			Help: "The number of idle processes.",
+			Namespace: namespace,
+			Name:      "idle_processes",
+			Help:      "The number of idle processes.",
 		})
 
 		activeProcessesGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "active_processes",
-			Help: "The number of active processes.",
+			Namespace: namespace,
+			Name:      "active_processes",
+			Help:      "The number of active processes.",
 		})
 
 		totalProcessesGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "total_processes",
-			Help: "The number of idle + active processes.",
+			Namespace: namespace,
+			Name:      "total_processes",
+			Help:      "The number of idle + active processes.",
 		})
 
 		maxActiveProcessesGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "max_active_processes",
-			Help: "The maximum number of active processes since FPM has started.",
+			Namespace: namespace,
+			Name:      "max_active_processes",
+			Help:      "The maximum number of active processes since FPM has started.",
 		})
 		maxChildrenReachedGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "max_children_reached",
-			Help: "The number of times, the process limit has been reached, when pm tries to start more children (works only for pm 'dynamic' and 'ondemand').",
+			Namespace: namespace,
+			Name:      "max_children_reached",
+			Help:      "The number of times, the process limit has been reached, when pm tries to start more children (works only for pm 'dynamic' and 'ondemand').",
 		})
 
 		slowRequestsGauge = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "slow_requests",
-			Help: "The number of requests that exceeded your 'request_slowlog_timeout' value.",
+			Namespace: namespace,
+			Name:      "slow_requests",
+			Help:      "The number of requests that exceeded your 'request_slowlog_timeout' value.",
 		})
 	)
 
