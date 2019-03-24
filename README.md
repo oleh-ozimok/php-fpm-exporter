@@ -11,7 +11,7 @@ helm install --name php-fpm-exporter deploy/php-fpm-exporter
 
 ### Prometheus job example
 
-```$yaml
+```yaml
   - job_name: 'kubernetes-php-fpm-endpoints'
     scrape_interval: 10s
     metrics_path: /metrics
