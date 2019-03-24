@@ -1,1 +1,1 @@
-# k8s-php-fpm-exporter
+# php-fpm-exporter for K8S environments
